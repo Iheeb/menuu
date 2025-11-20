@@ -40,6 +40,7 @@
         color: var(--text);
         line-height: 1.6;
         padding: 0;
+        font-size: 14px;
       }
 
       .container {
@@ -55,10 +56,10 @@
           var(--primary-dark)
         );
         color: white;
-        padding: 20px 0;
+        padding: 15px 0;
         text-align: center;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         position: relative;
         overflow: hidden;
       }
@@ -74,14 +75,14 @@
       }
 
       header h1 {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 5px;
         position: relative;
       }
 
       header p {
-        font-size: 1rem;
+        font-size: 0.85rem;
         opacity: 0.9;
         position: relative;
       }
@@ -89,7 +90,7 @@
       .main-content {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 20px;
       }
 
       @media (min-width: 992px) {
@@ -101,14 +102,14 @@
       .menu-section {
         background: var(--card-bg);
         border-radius: var(--radius);
-        padding: 20px;
+        padding: 15px;
         box-shadow: var(--shadow);
       }
 
       .order-section {
         background: var(--card-bg);
         border-radius: var(--radius);
-        padding: 20px;
+        padding: 15px;
         box-shadow: var(--shadow);
         position: sticky;
         top: 20px;
@@ -117,7 +118,7 @@
       }
 
       .section-title {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 15px;
         color: var(--text);
@@ -135,11 +136,11 @@
       }
 
       .category {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
 
       .category h2 {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: var(--primary);
         border-left: 4px solid var(--primary);
         padding-left: 12px;
@@ -149,15 +150,28 @@
 
       .items-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+      }
+
+      @media (max-width: 480px) {
+        .items-grid {
+          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .items-grid {
+          grid-template-columns: 1fr 1fr;
+        }
       }
 
       .card {
         background: var(--card-bg);
         border-radius: var(--radius);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        padding: 15px;
+        padding: 12px;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -174,30 +188,31 @@
 
       .card-image {
         width: 100%;
-        height: 120px;
+        height: 100px;
         object-fit: cover;
         border-radius: 8px;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
 
       .card h3 {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-bottom: 5px;
         color: var(--text);
         font-weight: 500;
+        line-height: 1.3;
       }
 
       .card p {
-        font-size: 0.85rem;
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        margin-bottom: 8px;
         color: var(--text-light);
       }
 
       .card-price {
         font-weight: 600;
         color: var(--primary);
-        margin-bottom: 10px;
-        font-size: 1rem;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
       }
 
       .add-btn {
@@ -205,8 +220,8 @@
         border: none;
         color: white;
         border-radius: 6px;
-        padding: 8px 12px;
-        font-size: 0.85rem;
+        padding: 7px 10px;
+        font-size: 0.8rem;
         cursor: pointer;
         transition: all 0.2s;
         font-weight: 500;
@@ -224,15 +239,15 @@
 
       .qty-badge {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 8px;
+        right: 8px;
         background: var(--secondary);
         color: white;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: bold;
         border-radius: 50%;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -241,7 +256,7 @@
 
       #orderList {
         list-style: none;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         max-height: 300px;
         overflow-y: auto;
       }
@@ -252,9 +267,9 @@
         align-items: center;
         background: #f8f9fa;
         border-radius: 8px;
-        padding: 10px 12px;
-        margin-bottom: 8px;
-        font-size: 0.85rem;
+        padding: 8px 10px;
+        margin-bottom: 6px;
+        font-size: 0.8rem;
         border: 1px solid #e9ecef;
       }
 
@@ -264,31 +279,32 @@
 
       .order-item-name {
         font-weight: 500;
+        font-size: 0.85rem;
       }
 
       .order-item-price {
         color: var(--text-light);
-        font-size: 0.8rem;
+        font-size: 0.75rem;
       }
 
       .order-item-controls {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
       }
 
       .order-item-controls button {
         background: var(--secondary);
         color: white;
         border: none;
-        width: 28px;
-        height: 28px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         transition: all 0.2s;
       }
 
@@ -307,15 +323,15 @@
 
       .order-summary {
         border-top: 1px solid #e9ecef;
-        padding-top: 15px;
+        padding-top: 12px;
       }
 
       .order-total {
         display: flex;
         justify-content: space-between;
         font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
+        font-size: 1rem;
+        margin-bottom: 12px;
       }
 
       #sendOrder {
@@ -324,15 +340,15 @@
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 12px;
-        font-size: 1rem;
+        padding: 10px;
+        font-size: 0.9rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 6px;
       }
 
       #sendOrder:hover {
@@ -351,10 +367,11 @@
       #message {
         text-align: center;
         font-weight: 500;
-        margin-top: 15px;
-        padding: 10px;
+        margin-top: 12px;
+        padding: 8px;
         border-radius: 8px;
         display: none;
+        font-size: 0.85rem;
       }
 
       .message-success {
@@ -371,43 +388,66 @@
 
       .empty-cart {
         text-align: center;
-        padding: 30px 0;
+        padding: 20px 0;
         color: var(--text-light);
       }
 
       .empty-cart img {
-        width: 80px;
+        width: 60px;
         opacity: 0.5;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
 
       #toast-container {
         position: fixed;
-        top: 20px;
-        right: 20px;
+        top: 15px;
+        right: 15px;
+        left: 15px;
         z-index: 9999;
+      }
+
+      @media (min-width: 768px) {
+        #toast-container {
+          left: auto;
+          right: 20px;
+          width: auto;
+        }
       }
 
       .toast {
         background: rgba(0, 0, 0, 0.85);
         color: white;
-        padding: 12px 20px;
+        padding: 10px 15px;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 500;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         display: flex;
         align-items: center;
-        gap: 10px;
-        transform: translateX(100%);
+        gap: 8px;
+        transform: translateY(-100%);
         opacity: 0;
         transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      @media (min-width: 768px) {
+        .toast {
+          transform: translateX(100%);
+          width: auto;
+        }
       }
 
       .toast.show {
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 1;
+      }
+
+      @media (min-width: 768px) {
+        .toast.show {
+          transform: translateX(0);
+        }
       }
 
       .toast.success {
@@ -419,16 +459,16 @@
       }
 
       .search-container {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         position: relative;
       }
 
       .search-input {
         width: 100%;
-        padding: 12px 15px 12px 40px;
+        padding: 10px 12px 10px 35px;
         border: 1px solid #ddd;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         transition: all 0.2s;
       }
 
@@ -440,29 +480,37 @@
 
       .search-icon {
         position: absolute;
-        left: 15px;
+        left: 12px;
         top: 50%;
         transform: translateY(-50%);
         color: var(--text-light);
+        font-size: 0.9rem;
       }
 
       .category-filter {
         display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
+        gap: 8px;
+        margin-bottom: 15px;
         overflow-x: auto;
         padding-bottom: 5px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .category-filter::-webkit-scrollbar {
+        display: none;
       }
 
       .category-btn {
         background: white;
         border: 1px solid #ddd;
         border-radius: 20px;
-        padding: 8px 15px;
-        font-size: 0.85rem;
+        padding: 6px 12px;
+        font-size: 0.8rem;
         cursor: pointer;
         white-space: nowrap;
         transition: all 0.2s;
+        flex-shrink: 0;
       }
 
       .category-btn.active {
@@ -477,17 +525,17 @@
 
       .floating-cart {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        bottom: 15px;
+        right: 15px;
         background: var(--primary);
         color: white;
-        width: 60px;
-        height: 60px;
+        width: 55px;
+        height: 55px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         z-index: 100;
@@ -504,11 +552,11 @@
         right: -5px;
         background: var(--secondary);
         color: white;
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         font-weight: bold;
         border-radius: 50%;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -517,11 +565,19 @@
       .table-number {
         position: absolute;
         top: 10px;
-        right: 20px;
+        right: 15px;
         background: rgba(255, 255, 255, 0.2);
-        padding: 5px 10px;
+        padding: 4px 8px;
         border-radius: 20px;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 768px) {
+        .table-number {
+          position: static;
+          margin-top: 8px;
+          display: inline-block;
+        }
       }
 
       /* Table selection modal styles */
@@ -536,36 +592,51 @@
         align-items: center;
         justify-content: center;
         z-index: 1000;
+        padding: 15px;
       }
 
       .table-modal-content {
         background: white;
-        padding: 30px;
+        padding: 20px;
         border-radius: 12px;
-        width: 90%;
+        width: 100%;
         max-width: 500px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         text-align: center;
+        max-height: 90vh;
+        overflow-y: auto;
       }
 
       .table-modal h2 {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         color: var(--primary);
+        font-size: 1.3rem;
+      }
+
+      .table-modal p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
       }
 
       .table-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 15px;
-        margin: 25px 0;
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      @media (max-width: 480px) {
+        .table-grid {
+          grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        }
       }
 
       .table-btn {
         background: white;
         border: 2px solid var(--primary);
         border-radius: 8px;
-        padding: 15px 10px;
-        font-size: 1.1rem;
+        padding: 12px 8px;
+        font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.2s;
@@ -586,8 +657,8 @@
         color: white;
         border: none;
         border-radius: 8px;
-        padding: 12px 25px;
-        font-size: 1rem;
+        padding: 10px 20px;
+        font-size: 0.9rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s;
@@ -603,10 +674,10 @@
         border: 1px solid white;
         color: white;
         border-radius: 20px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
+        padding: 4px 8px;
+        font-size: 0.75rem;
         cursor: pointer;
-        margin-left: 10px;
+        margin-left: 8px;
         transition: all 0.2s;
       }
 
@@ -614,30 +685,107 @@
         background: rgba(255, 255, 255, 0.2);
       }
 
+      /* Mobile-specific improvements */
       @media (max-width: 768px) {
-        .items-grid {
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        body {
+          padding-bottom: 80px; /* Space for floating cart */
         }
-
+        
+        .container {
+          padding: 0 10px;
+        }
+        
+        header {
+          padding: 12px 0;
+          margin-bottom: 15px;
+        }
+        
+        header h1 {
+          font-size: 1.3rem;
+        }
+        
+        .menu-section, .order-section {
+          padding: 12px;
+        }
+        
+        .section-title {
+          font-size: 1.1rem;
+        }
+        
+        .category h2 {
+          font-size: 0.95rem;
+        }
+        
         .floating-cart {
-          display: none;
+          display: flex;
         }
-
-        .table-number {
-          position: static;
-          margin-top: 10px;
-          display: inline-block;
+        
+        .order-section {
+          position: relative;
+          top: 0;
+          margin-bottom: 20px;
         }
+      }
 
+      @media (max-width: 480px) {
+        .items-grid {
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        }
+        
+        .card {
+          padding: 10px;
+        }
+        
+        .card-image {
+          height: 90px;
+        }
+        
+        .card h3 {
+          font-size: 0.85rem;
+        }
+        
+        .card-price {
+          font-size: 0.85rem;
+        }
+        
+        .add-btn {
+          padding: 6px 8px;
+          font-size: 0.75rem;
+        }
+        
+        .category-filter {
+          gap: 6px;
+        }
+        
+        .category-btn {
+          padding: 5px 10px;
+          font-size: 0.75rem;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .items-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        
+        .card-image {
+          height: 80px;
+        }
+        
         .table-grid {
-          grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+        }
+        
+        .table-btn {
+          padding: 10px 5px;
+          font-size: 0.9rem;
         }
       }
     </style>
   </head>
   <body>
     <!-- Table Selection Modal -->
-    <div id="tableModal" class="table-modal">
+    <div id="tableModal" class="table-modal" style="display: none;">
       <div class="table-modal-content">
         <h2><i class="fas fa-utensils"></i> Sélectionnez votre table</h2>
         <p>
@@ -898,441 +1046,4 @@
             name: "Hawaïenne",
             price: 11,
             image:
-              "https://images.unsplash.com/photo-1594007654729-407eedc4be0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Végétarienne",
-            price: 12,
-            image:
-              "https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍔 Burgers": [
-          {
-            name: "Cheeseburger",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Chicken Burger",
-            price: 8,
-            image:
-              "https://images.unsplash.com/photo-1606755962773-d324e383242b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Double Burger",
-            price: 11,
-            image:
-              "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Veggie Burger",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1525059696034-4967a7290042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Bacon Burger",
-            price: 10,
-            image:
-              "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🥞 Crêpes": [
-          {
-            name: "Crêpe Nutella",
-            price: 6,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Miel",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Banane",
-            price: 6,
-            image:
-              "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Fraise",
-            price: 6.5,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Chocolat",
-            price: 6.5,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍹 Jus": [
-          {
-            name: "Jus d'orange",
-            price: 4,
-            image:
-              "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus de fraise",
-            price: 4.5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus de kiwi",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus d'ananas",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus multifruits",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🥗 Salades": [
-          {
-            name: "Salade César",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Salade Grecque",
-            price: 8.5,
-            image:
-              "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Salade Végétarienne",
-            price: 8,
-            image:
-              "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍝 Pâtes": [
-          {
-            name: "Spaghetti Bolognese",
-            price: 11,
-            image:
-              "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Penne Arrabiata",
-            price: 10,
-            image:
-              "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Lasagne",
-            price: 12,
-            image:
-              "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍰 Desserts": [
-          {
-            name: "Tiramisu",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Cheesecake",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1567306301408-9b74779a11af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Mousse au Chocolat",
-            price: 4.5,
-            image:
-              "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-      };
-
-      const menuContainer = document.getElementById("menu");
-      const orderList = document.getElementById("orderList");
-      const totalPriceEl = document.getElementById("totalPrice");
-      const sendOrderBtn = document.getElementById("sendOrder");
-      const message = document.getElementById("message");
-      const searchInput = document.querySelector(".search-input");
-      const categoryBtns = document.querySelectorAll(".category-btn");
-      const floatingCart = document.querySelector(".floating-cart");
-      const cartCount = document.querySelector(".cart-count");
-      let order = [];
-
-      // Render menu
-      function renderMenu() {
-        menuContainer.innerHTML = "";
-
-        Object.keys(menuData).forEach((category) => {
-          const categoryDiv = document.createElement("div");
-          categoryDiv.classList.add("category");
-          categoryDiv.dataset.category = category;
-
-          const title = document.createElement("h2");
-          title.textContent = category;
-          categoryDiv.appendChild(title);
-
-          const itemsGrid = document.createElement("div");
-          itemsGrid.classList.add("items-grid");
-
-          menuData[category].forEach((item) => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.dataset.name = item.name.toLowerCase();
-
-            const img = document.createElement("img");
-            img.src = item.image;
-            img.alt = item.name;
-            img.classList.add("card-image");
-            card.appendChild(img);
-
-            const nameEl = document.createElement("h3");
-            nameEl.textContent = item.name;
-
-            const priceEl = document.createElement("p");
-            priceEl.classList.add("card-price");
-            priceEl.textContent = item.price.toFixed(2) + " DT";
-
-            const btn = document.createElement("button");
-            btn.classList.add("add-btn");
-            btn.innerHTML = '<i class="fas fa-plus"></i> Ajouter';
-            btn.addEventListener("click", () => {
-              if (!currentTable) {
-                showToast("Veuillez d'abord sélectionner une table", "error");
-                showTableModal();
-                return;
-              }
-              addToOrder(item);
-            });
-
-            card.appendChild(nameEl);
-            card.appendChild(priceEl);
-            card.appendChild(btn);
-
-            itemsGrid.appendChild(card);
-          });
-
-          categoryDiv.appendChild(itemsGrid);
-          menuContainer.appendChild(categoryDiv);
-        });
-      }
-
-      // Add item to order
-      function addToOrder(item) {
-        const existing = order.find((i) => i.name === item.name);
-        if (existing) {
-          existing.quantity++;
-        } else {
-          order.push({ name: item.name, price: item.price, quantity: 1 });
-        }
-        renderOrder();
-        showToast(`${item.name} ajouté au panier`, "success");
-      }
-
-      // Render order
-      function renderOrder() {
-        orderList.innerHTML = "";
-        let total = 0;
-        let itemCount = 0;
-
-        if (order.length === 0) {
-          const emptyCart = document.createElement("div");
-          emptyCart.classList.add("empty-cart");
-          emptyCart.innerHTML = `
-          <i class="fas fa-shopping-cart" style="font-size: 3rem; opacity: 0.3; margin-bottom: 10px;"></i>
-          <p>Votre panier est vide</p>
-          <p style="font-size: 0.8rem; margin-top: 5px;">Ajoutez des articles pour commencer</p>
-        `;
-          orderList.appendChild(emptyCart);
-          sendOrderBtn.disabled = true;
-        } else {
-          sendOrderBtn.disabled = false;
-
-          order.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            itemCount += item.quantity;
-
-            const li = document.createElement("li");
-            li.innerHTML = `
-            <div class="order-item-info">
-              <div class="order-item-name">${item.name}</div>
-              <div class="order-item-price">${item.price.toFixed(2)} DT</div>
-            </div>
-            <div class="order-item-controls">
-              <button onclick="decreaseQuantity(${index})">−</button>
-              <span>${item.quantity}</span>
-              <button onclick="increaseQuantity(${index})">+</button>
-              <button class="remove-btn" onclick="removeItem(${index})">×</button>
-            </div>
-          `;
-            orderList.appendChild(li);
-          });
-        }
-
-        totalPriceEl.textContent = `${total.toFixed(2)} DT`;
-        cartCount.textContent = itemCount;
-      }
-
-      // Remove item from order
-      window.removeItem = function (index) {
-        const itemName = order[index].name;
-        order.splice(index, 1);
-        renderOrder();
-        showToast(`${itemName} retiré du panier`, "error");
-      };
-
-      // Increase quantity
-      window.increaseQuantity = function (index) {
-        order[index].quantity++;
-        renderOrder();
-      };
-
-      // Decrease quantity
-      window.decreaseQuantity = function (index) {
-        if (order[index].quantity > 1) {
-          order[index].quantity--;
-        } else {
-          removeItem(index);
-          return;
-        }
-        renderOrder();
-      };
-
-      // Show toast message
-      function showToast(message, type = "success") {
-        const toastContainer = document.getElementById("toast-container");
-        const toast = document.createElement("div");
-        toast.classList.add("toast", type);
-        toast.innerHTML = `
-        <span>${type === "success" ? "✅" : "❌"}</span>
-        <span>${message}</span>
-      `;
-
-        toastContainer.appendChild(toast);
-
-        setTimeout(() => {
-          toast.classList.add("show");
-        }, 10);
-
-        setTimeout(() => {
-          toast.classList.remove("show");
-          setTimeout(() => {
-            toastContainer.removeChild(toast);
-          }, 300);
-        }, 3000);
-      }
-
-      // Filter menu by search
-      searchInput.addEventListener("input", function () {
-        const searchTerm = this.value.toLowerCase();
-        const cards = document.querySelectorAll(".card");
-
-        cards.forEach((card) => {
-          const itemName = card.dataset.name;
-          if (itemName.includes(searchTerm)) {
-            card.style.display = "flex";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      });
-
-      // Filter menu by category
-      categoryBtns.forEach((btn) => {
-        btn.addEventListener("click", function () {
-          const category = this.dataset.category;
-
-          // Update active button
-          categoryBtns.forEach((b) => b.classList.remove("active"));
-          this.classList.add("active");
-
-          // Show/hide categories
-          const categories = document.querySelectorAll(".category");
-          categories.forEach((cat) => {
-            if (category === "all" || cat.dataset.category === category) {
-              cat.style.display = "block";
-            } else {
-              cat.style.display = "none";
-            }
-          });
-        });
-      });
-
-      // Scroll to order section when clicking floating cart
-      floatingCart.addEventListener("click", function () {
-        document.querySelector(".order-section").scrollIntoView({
-          behavior: "smooth",
-        });
-      });
-
-      // Send order
-      sendOrderBtn.addEventListener("click", async () => {
-        if (order.length === 0) {
-          message.textContent = "🛑 Votre panier est vide.";
-          message.className = "message-error";
-          return;
-        }
-
-        if (!currentTable) {
-          message.textContent = "🛑 Veuillez d'abord sélectionner une table.";
-          message.className = "message-error";
-          showTableModal();
-          return;
-        }
-
-        try {
-          for (const item of order) {
-            await fetch("http://localhost:5000/order", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                item_id: item.name,
-                quantity: item.quantity,
-                tableId: currentTable,
-                time: new Date().toLocaleTimeString(),
-              }),
-            });
-          }
-
-          message.textContent = `✅ Commande envoyée avec succès pour la Table ${currentTable} !`;
-          message.className = "message-success";
-
-          order = [];
-          renderOrder();
-
-          setTimeout(() => {
-            message.style.display = "none";
-          }, 3000);
-        } catch (err) {
-          console.error(err);
-          message.textContent = "❌ Erreur lors de l'envoi de la commande.";
-          message.className = "message-error";
-        }
-      });
-
-      // Initialize
-      generateTableButtons();
-      checkSavedTable();
-      renderMenu();
-      renderOrder();
-    </script>
-  </body>
-</html>
+              "https://images.unsplash.com/photo-1594007654729-407eedc4be0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfH
