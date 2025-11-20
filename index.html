@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JOY Coffeeshop</title>
+    <title>📈 JOY Coffeeshop - Tableau de Bord Manager</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -39,364 +41,340 @@
         background: var(--bg);
         color: var(--text);
         line-height: 1.6;
-        padding: 0;
+        padding: 20px;
       }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-      }
-
-      header {
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 20px;
         background: linear-gradient(
           135deg,
           var(--primary),
           var(--primary-dark)
         );
+        border-radius: var(--radius);
         color: white;
-        padding: 20px 0;
-        text-align: center;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 25px;
-        position: relative;
-        overflow: hidden;
+        box-shadow: var(--shadow);
       }
 
-      header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M50,10 C60,10 70,15 75,25 C85,35 90,45 90,55 C90,65 85,75 75,85 C65,95 55,100 50,100 C45,100 35,95 25,85 C15,75 10,65 10,55 C10,45 15,35 25,25 C30,15 40,10 50,10 Z M50,25 C45,25 40,30 40,35 C40,40 45,45 50,45 C55,45 60,40 60,35 C60,30 55,25 50,25 Z"/></svg>');
+      .header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
       }
 
-      header h1 {
-        font-size: 2.2rem;
-        font-weight: 600;
-        margin-bottom: 5px;
-        position: relative;
-      }
-
-      header p {
-        font-size: 1rem;
+      .header p {
         opacity: 0.9;
-        position: relative;
+        margin-top: 5px;
+        font-size: 0.95rem;
       }
 
-      .main-content {
+      .grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 25px;
       }
 
-      @media (min-width: 992px) {
-        .main-content {
-          grid-template-columns: 2fr 1fr;
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr;
         }
-      }
-
-      .menu-section {
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        padding: 20px;
-        box-shadow: var(--shadow);
-      }
-
-      .order-section {
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        padding: 20px;
-        box-shadow: var(--shadow);
-        position: sticky;
-        top: 20px;
-        height: fit-content;
-        border: 2px solid var(--accent);
-      }
-
-      .section-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: var(--text);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .section-title::after {
-        content: "";
-        flex: 1;
-        height: 2px;
-        background: linear-gradient(to right, var(--primary), transparent);
-        margin-left: 10px;
-      }
-
-      .category {
-        margin-bottom: 30px;
-      }
-
-      .category h2 {
-        font-size: 1.1rem;
-        color: var(--primary);
-        border-left: 4px solid var(--primary);
-        padding-left: 12px;
-        margin-bottom: 15px;
-        font-weight: 500;
-      }
-
-      .items-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
       }
 
       .card {
         background: var(--card-bg);
         border-radius: var(--radius);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        padding: 15px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        border: 1px solid #f0f0f0;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+        border-left: 4px solid var(--primary);
       }
 
       .card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
       }
 
-      .card-image {
-        width: 100%;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-bottom: 10px;
-      }
-
-      .card h3 {
-        font-size: 0.95rem;
-        margin-bottom: 5px;
-        color: var(--text);
-        font-weight: 500;
-      }
-
-      .card p {
-        font-size: 0.85rem;
-        margin-bottom: 10px;
-        color: var(--text-light);
-      }
-
-      .card-price {
-        font-weight: 600;
+      .card h2 {
         color: var(--primary);
-        margin-bottom: 10px;
-        font-size: 1rem;
-      }
-
-      .add-btn {
-        background: var(--primary);
-        border: none;
-        color: white;
-        border-radius: 6px;
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-weight: 500;
-        margin-top: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-      }
-
-      .add-btn:hover {
-        background: var(--primary-dark);
-        transform: scale(1.03);
-      }
-
-      .qty-badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: var(--secondary);
-        color: white;
-        font-size: 0.7rem;
-        font-weight: bold;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      }
-
-      #orderList {
-        list-style: none;
         margin-bottom: 20px;
-        max-height: 300px;
-        overflow-y: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.3rem;
       }
 
-      #orderList li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      .stats-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
         background: #f8f9fa;
         border-radius: 8px;
-        padding: 10px 12px;
-        margin-bottom: 8px;
-        font-size: 0.85rem;
+        padding: 15px;
+        text-align: center;
         border: 1px solid #e9ecef;
       }
 
-      .order-item-info {
-        flex: 1;
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 5px;
       }
 
-      .order-item-name {
-        font-weight: 500;
-      }
-
-      .order-item-price {
+      .stat-label {
+        font-size: 0.85rem;
         color: var(--text-light);
-        font-size: 0.8rem;
       }
 
-      .order-item-controls {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .order-item-controls button {
-        background: var(--secondary);
-        color: white;
-        border: none;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.7rem;
-        transition: all 0.2s;
-      }
-
-      .order-item-controls button:hover {
-        background: var(--secondary-light);
-        transform: scale(1.1);
-      }
-
-      .order-item-controls .remove-btn {
-        background: #d9534f;
-      }
-
-      .order-item-controls .remove-btn:hover {
-        background: #c9302c;
-      }
-
-      .order-summary {
-        border-top: 1px solid #e9ecef;
-        padding-top: 15px;
-      }
-
-      .order-total {
-        display: flex;
-        justify-content: space-between;
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-      }
-
-      #sendOrder {
+      canvas {
         width: 100%;
+        max-height: 300px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid #eee;
+        padding: 12px 8px;
+        text-align: left;
+        font-size: 0.9rem;
+      }
+
+      th {
+        background: var(--primary);
+        color: white;
+        font-weight: 500;
+      }
+
+      tr:hover {
+        background: #f8f9fa;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .low-stock {
+        color: #f44336;
+        font-weight: bold;
+      }
+
+      .medium-stock {
+        color: #ff9800;
+      }
+
+      .good-stock {
+        color: #4caf50;
+      }
+
+      .stock-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .stock-controls input {
+        width: 70px;
+        padding: 6px 8px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      .stock-controls button {
         background: var(--secondary);
         color: white;
         border: none;
-        border-radius: 8px;
-        padding: 12px;
-        font-size: 1rem;
-        font-weight: 500;
+        border-radius: 6px;
         cursor: pointer;
+        font-size: 0.8rem;
         transition: all 0.2s;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
+        width: 30px;
+        height: 30px;
       }
 
-      #sendOrder:hover {
+      .stock-controls button:hover {
         background: var(--secondary-light);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        transform: translateY(-1px);
       }
 
-      #sendOrder:disabled {
-        background: #ccc;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
+      .reset-btn {
+        background: var(--primary) !important;
+        padding: 10px 16px !important;
+        width: auto !important;
+        font-size: 0.9rem !important;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
 
-      #message {
-        text-align: center;
-        font-weight: 500;
-        margin-top: 15px;
-        padding: 10px;
+      .reset-btn:hover {
+        background: var(--primary-dark) !important;
+      }
+
+      .add-item-form {
+        background: #f8f9fa;
+        padding: 20px;
         border-radius: 8px;
-        display: none;
+        margin-bottom: 20px;
+        border: 1px solid #e9ecef;
       }
 
-      .message-success {
-        background: #e8f5e9;
-        color: #2e7d32;
-        display: block !important;
+      .add-item-form h3 {
+        margin-top: 0;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1.1rem;
       }
 
-      .message-error {
-        background: #ffebee;
-        color: #c62828;
-        display: block !important;
+      .form-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr auto;
+        gap: 12px;
+        align-items: end;
       }
 
-      .empty-cart {
+      .form-group input,
+      .form-group select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.1);
+      }
+
+      .add-btn {
+        background: var(--primary) !important;
+        padding: 10px 16px !important;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .add-btn:hover {
+        background: var(--primary-dark) !important;
+        transform: translateY(-1px);
+      }
+
+      .delete-btn {
+        background: #d9534f !important;
+      }
+
+      .delete-btn:hover {
+        background: #c9302c !important;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--secondary);
+        color: white;
+      }
+
+      .action-btn:hover {
+        background: var(--secondary-light);
+        transform: translateY(-1px);
+      }
+
+      .action-btn.secondary {
+        background: #6c757d;
+      }
+
+      .action-btn.secondary:hover {
+        background: #5a6268;
+      }
+
+      .empty-state {
         text-align: center;
-        padding: 30px 0;
+        padding: 30px;
         color: var(--text-light);
       }
 
-      .empty-cart img {
-        width: 80px;
-        opacity: 0.5;
+      .empty-state i {
+        font-size: 2.5rem;
+        opacity: 0.3;
         margin-bottom: 10px;
       }
 
-      #toast-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
+      @media (max-width: 768px) {
+        .form-group {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-container {
+          grid-template-columns: 1fr;
+        }
+
+        .stock-controls {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .stock-controls input {
+          width: 100%;
+        }
       }
 
       .toast {
-        background: rgba(0, 0, 0, 0.85);
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary);
         color: white;
         padding: 12px 20px;
         border-radius: 8px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin-bottom: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -411,820 +389,141 @@
       }
 
       .toast.success {
-        background: rgba(139, 69, 19, 0.9);
+        background: var(--primary);
       }
 
       .toast.error {
-        background: rgba(217, 83, 79, 0.9);
-      }
-
-      .search-container {
-        margin-bottom: 20px;
-        position: relative;
-      }
-
-      .search-input {
-        width: 100%;
-        padding: 12px 15px 12px 40px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        transition: all 0.2s;
-      }
-
-      .search-input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
-      }
-
-      .search-icon {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-light);
-      }
-
-      .category-filter {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-        overflow-x: auto;
-        padding-bottom: 5px;
-      }
-
-      .category-btn {
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 20px;
-        padding: 8px 15px;
-        font-size: 0.85rem;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.2s;
-      }
-
-      .category-btn.active {
-        background: var(--primary);
-        color: white;
-        border-color: var(--primary);
-      }
-
-      .category-btn:hover {
-        border-color: var(--primary);
-      }
-
-      .floating-cart {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: var(--primary);
-        color: white;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        z-index: 100;
-        transition: all 0.3s;
-      }
-
-      .floating-cart:hover {
-        transform: scale(1.1);
-      }
-
-      .cart-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background: var(--secondary);
-        color: white;
-        font-size: 0.7rem;
-        font-weight: bold;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .table-number {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.2);
-        padding: 5px 10px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-      }
-
-      /* Table selection modal styles */
-      .table-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
-
-      .table-modal-content {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 500px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        text-align: center;
-      }
-
-      .table-modal h2 {
-        margin-bottom: 20px;
-        color: var(--primary);
-      }
-
-      .table-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        gap: 15px;
-        margin: 25px 0;
-      }
-
-      .table-btn {
-        background: white;
-        border: 2px solid var(--primary);
-        border-radius: 8px;
-        padding: 15px 10px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .table-btn:hover {
-        background: var(--primary-light);
-        color: white;
-      }
-
-      .table-btn.selected {
-        background: var(--primary);
-        color: white;
-      }
-
-      .confirm-table-btn {
-        background: var(--secondary);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 12px 25px;
-        font-size: 1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin-top: 10px;
-      }
-
-      .confirm-table-btn:hover {
-        background: var(--secondary-light);
-      }
-
-      .change-table-btn {
-        background: transparent;
-        border: 1px solid white;
-        color: white;
-        border-radius: 20px;
-        padding: 5px 10px;
-        font-size: 0.8rem;
-        cursor: pointer;
-        margin-left: 10px;
-        transition: all 0.2s;
-      }
-
-      .change-table-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      @media (max-width: 768px) {
-        .items-grid {
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        }
-
-        .floating-cart {
-          display: none;
-        }
-
-        .table-number {
-          position: static;
-          margin-top: 10px;
-          display: inline-block;
-        }
-
-        .table-grid {
-          grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-        }
+        background: #d9534f;
       }
     </style>
   </head>
   <body>
-    <!-- Table Selection Modal -->
-    <div id="tableModal" class="table-modal">
-      <div class="table-modal-content">
-        <h2><i class="fas fa-utensils"></i> Sélectionnez votre table</h2>
-        <p>
-          Veuillez choisir votre numéro de table pour commencer votre commande
-        </p>
-        <div class="table-grid" id="tableGrid">
-          <!-- Table buttons will be generated here -->
-        </div>
-        <button id="confirmTableBtn" class="confirm-table-btn">
-          Confirmer la table
-        </button>
-      </div>
+    <div class="header">
+      <h1><i class="fas fa-chart-line"></i> Tableau de Bord Manager</h1>
+      <p>Surveillance en temps réel des performances et gestion du stock</p>
     </div>
 
-    <header>
-      <div class="container">
-        <h1><i class="fas fa-coffee"></i> JOY Coffeeshop</h1>
-        <p>Commandez vos plats et boissons préférés</p>
-        <div class="table-number">
-          <i class="fas fa-utensils"></i>
-          <span id="currentTable">Table ?</span>
-          <button class="change-table-btn" id="changeTableBtn">
-            <i class="fas fa-sync-alt"></i> Changer
+    <div class="grid">
+      <div class="card">
+        <h2><i class="fas fa-chart-bar"></i> Analyse des Ventes</h2>
+
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-value" id="totalOrders">0</div>
+            <div class="stat-label">Commandes Total</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="totalIncome">0 DT</div>
+            <div class="stat-label">Revenu Total</div>
+          </div>
+        </div>
+
+        <canvas id="salesChart"></canvas>
+
+        <div class="action-buttons">
+          <button class="action-btn" onclick="exportSalesData()">
+            <i class="fas fa-download"></i> Exporter Données
+          </button>
+          <button class="action-btn secondary" onclick="refreshData()">
+            <i class="fas fa-sync-alt"></i> Actualiser
           </button>
         </div>
       </div>
-    </header>
 
-    <div class="container">
-      <div class="main-content">
-        <div class="menu-section">
-          <div class="search-container">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
+      <div class="card">
+        <h2><i class="fas fa-boxes"></i> Gestion du Stock</h2>
+
+        <!-- Add New Item Form -->
+        <div class="add-item-form">
+          <h3><i class="fas fa-plus-circle"></i> Ajouter un Nouvel Article</h3>
+          <div class="form-group">
             <input
               type="text"
-              class="search-input"
-              placeholder="Rechercher un produit..."
+              id="newItemName"
+              placeholder="Nom de l'article"
             />
-          </div>
-
-          <div class="category-filter">
-            <button class="category-btn active" data-category="all">
-              Tous
-            </button>
-            <button class="category-btn" data-category="☕ Boissons Chaudes">
-              Boissons Chaudes
-            </button>
-            <button class="category-btn" data-category="🧊 Boissons Froides">
-              Boissons Froides
-            </button>
-            <button class="category-btn" data-category="🍕 Pizzas">
-              Pizzas
-            </button>
-            <button class="category-btn" data-category="🍔 Burgers">
-              Burgers
-            </button>
-            <button class="category-btn" data-category="🥞 Crêpes">
-              Crêpes
-            </button>
-            <button class="category-btn" data-category="🍹 Jus">Jus</button>
-            <button class="category-btn" data-category="🥗 Salades">
-              Salades
-            </button>
-            <button class="category-btn" data-category="🍝 Pâtes">Pâtes</button>
-            <button class="category-btn" data-category="🍰 Desserts">
-              Desserts
+            <input
+              type="number"
+              id="newItemQuantity"
+              placeholder="Quantité"
+              min="0"
+              value="0"
+            />
+            <select id="newItemUnit">
+              <option value="bouteilles">Bouteilles</option>
+              <option value="kg">Kg</option>
+              <option value="litres">Litres</option>
+            </select>
+            <button class="add-btn" onclick="addNewItem()">
+              <i class="fas fa-plus"></i> Ajouter
             </button>
           </div>
-
-          <h2 class="section-title">
-            <i class="fas fa-utensils"></i> Notre Menu
-          </h2>
-          <div id="menu"></div>
         </div>
 
-        <div class="order-section">
-          <h2 class="section-title">
-            <i class="fas fa-shopping-cart"></i> Votre Commande
-          </h2>
-          <ul id="orderList"></ul>
-          <div class="order-summary">
-            <div class="order-total">
-              <span>Total :</span>
-              <span id="totalPrice">0.00 DT</span>
-            </div>
-            <button id="sendOrder">
-              <i class="fas fa-paper-plane"></i>
-              <span>Passer la commande</span>
-            </button>
-          </div>
-          <p id="message"></p>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+          "
+        >
+          <span style="font-weight: 500; color: var(--text-light)">
+            <i class="fas fa-list"></i> Inventaire Actuel
+          </span>
+          <button class="add-btn" onclick="resetStock()">
+            <i class="fas fa-redo"></i> Réinitialiser Stock
+          </button>
+        </div>
+
+        <div style="max-height: 400px; overflow-y: auto">
+          <table id="stockTable">
+            <thead>
+              <tr>
+                <th>Article</th>
+                <th>Stock</th>
+                <th>Unité</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Stock items will be populated here -->
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-
-    <div class="floating-cart">
-      <i class="fas fa-shopping-cart"></i>
-      <div class="cart-count">0</div>
     </div>
 
     <div id="toast-container"></div>
 
     <script>
-      // Table management
-      let currentTable = null;
-      const tableModal = document.getElementById("tableModal");
-      const tableGrid = document.getElementById("tableGrid");
-      const confirmTableBtn = document.getElementById("confirmTableBtn");
-      const currentTableEl = document.getElementById("currentTable");
-      const changeTableBtn = document.getElementById("changeTableBtn");
+      let chart;
+      const socket = io("http://localhost:5000");
 
-      // Generate table buttons (1-20)
-      function generateTableButtons() {
-        for (let i = 1; i <= 20; i++) {
-          const tableBtn = document.createElement("button");
-          tableBtn.classList.add("table-btn");
-          tableBtn.textContent = i;
-          tableBtn.dataset.table = i;
-          tableBtn.addEventListener("click", () => {
-            // Remove selected class from all buttons
-            document.querySelectorAll(".table-btn").forEach((btn) => {
-              btn.classList.remove("selected");
-            });
-            // Add selected class to clicked button
-            tableBtn.classList.add("selected");
-            currentTable = i;
-          });
-          tableGrid.appendChild(tableBtn);
-        }
-      }
+      // Available units for dropdown
+      const availableUnits = [
+        "portions",
+        "sachets",
+        "bouteilles",
+        "pizzas",
+        "burgers",
+        "crêpes",
+        "verres",
+        "unités",
+        "kg",
+        "litres",
+      ];
 
-      // Show table selection modal
-      function showTableModal() {
-        tableModal.style.display = "flex";
-      }
-
-      // Hide table selection modal
-      function hideTableModal() {
-        tableModal.style.display = "none";
-      }
-
-      // Set the current table
-      function setTable(tableNumber) {
-        currentTable = tableNumber;
-        currentTableEl.textContent = `Table ${tableNumber}`;
-        hideTableModal();
-        // Save to localStorage
-        localStorage.setItem("joyCoffeeshopTable", tableNumber);
-      }
-
-      // Check if table is already set in localStorage
-      function checkSavedTable() {
-        const savedTable = localStorage.getItem("joyCoffeeshopTable");
-        if (savedTable) {
-          setTable(parseInt(savedTable));
-        } else {
-          showTableModal();
-        }
-      }
-
-      // Event listeners for table selection
-      confirmTableBtn.addEventListener("click", () => {
-        if (currentTable) {
-          setTable(currentTable);
-        } else {
-          showToast("Veuillez sélectionner une table", "error");
-        }
-      });
-
-      changeTableBtn.addEventListener("click", showTableModal);
-
-      // Menu data and other functionality remains the same
-      const menuData = {
-        "☕ Boissons Chaudes": [
-          {
-            name: "Café Espresso",
-            price: 3,
-            image:
-              "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Cappuccino",
-            price: 4,
-            image:
-              "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Thé Vert",
-            price: 2.5,
-            image:
-              "https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Latte",
-            price: 4.5,
-            image:
-              "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Chocolat Chaud",
-            price: 3.5,
-            image:
-              "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🧊 Boissons Froides": [
-          {
-            name: "Coca-Cola",
-            price: 3,
-            image:
-              "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Eau Minérale",
-            price: 2,
-            image:
-              "https://images.unsplash.com/photo-1548839149-6bd20b8b5c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Limonade",
-            price: 3,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Iced Coffee",
-            price: 4,
-            image:
-              "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Smoothie Fraise",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍕 Pizzas": [
-          {
-            name: "Margherita",
-            price: 10,
-            image:
-              "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "4 Fromages",
-            price: 12,
-            image:
-              "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Pepperoni",
-            price: 13,
-            image:
-              "https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Hawaïenne",
-            price: 11,
-            image:
-              "https://images.unsplash.com/photo-1594007654729-407eedc4be0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Végétarienne",
-            price: 12,
-            image:
-              "https://images.unsplash.com/photo-1601924582970-9238bcb495d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍔 Burgers": [
-          {
-            name: "Cheeseburger",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Chicken Burger",
-            price: 8,
-            image:
-              "https://images.unsplash.com/photo-1606755962773-d324e383242b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Double Burger",
-            price: 11,
-            image:
-              "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Veggie Burger",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1525059696034-4967a7290042?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Bacon Burger",
-            price: 10,
-            image:
-              "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🥞 Crêpes": [
-          {
-            name: "Crêpe Nutella",
-            price: 6,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Miel",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Banane",
-            price: 6,
-            image:
-              "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Fraise",
-            price: 6.5,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Crêpe Chocolat",
-            price: 6.5,
-            image:
-              "https://images.unsplash.com/photo-1554520737-2ce6d7c61e23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍹 Jus": [
-          {
-            name: "Jus d'orange",
-            price: 4,
-            image:
-              "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus de fraise",
-            price: 4.5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus de kiwi",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus d'ananas",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Jus multifruits",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🥗 Salades": [
-          {
-            name: "Salade César",
-            price: 9,
-            image:
-              "https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Salade Grecque",
-            price: 8.5,
-            image:
-              "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Salade Végétarienne",
-            price: 8,
-            image:
-              "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍝 Pâtes": [
-          {
-            name: "Spaghetti Bolognese",
-            price: 11,
-            image:
-              "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Penne Arrabiata",
-            price: 10,
-            image:
-              "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Lasagne",
-            price: 12,
-            image:
-              "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-        "🍰 Desserts": [
-          {
-            name: "Tiramisu",
-            price: 5,
-            image:
-              "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Cheesecake",
-            price: 5.5,
-            image:
-              "https://images.unsplash.com/photo-1567306301408-9b74779a11af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-          {
-            name: "Mousse au Chocolat",
-            price: 4.5,
-            image:
-              "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=300&q=80",
-          },
-        ],
-      };
-
-      const menuContainer = document.getElementById("menu");
-      const orderList = document.getElementById("orderList");
-      const totalPriceEl = document.getElementById("totalPrice");
-      const sendOrderBtn = document.getElementById("sendOrder");
-      const message = document.getElementById("message");
-      const searchInput = document.querySelector(".search-input");
-      const categoryBtns = document.querySelectorAll(".category-btn");
-      const floatingCart = document.querySelector(".floating-cart");
-      const cartCount = document.querySelector(".cart-count");
-      let order = [];
-
-      // Render menu
-      function renderMenu() {
-        menuContainer.innerHTML = "";
-
-        Object.keys(menuData).forEach((category) => {
-          const categoryDiv = document.createElement("div");
-          categoryDiv.classList.add("category");
-          categoryDiv.dataset.category = category;
-
-          const title = document.createElement("h2");
-          title.textContent = category;
-          categoryDiv.appendChild(title);
-
-          const itemsGrid = document.createElement("div");
-          itemsGrid.classList.add("items-grid");
-
-          menuData[category].forEach((item) => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.dataset.name = item.name.toLowerCase();
-
-            const img = document.createElement("img");
-            img.src = item.image;
-            img.alt = item.name;
-            img.classList.add("card-image");
-            card.appendChild(img);
-
-            const nameEl = document.createElement("h3");
-            nameEl.textContent = item.name;
-
-            const priceEl = document.createElement("p");
-            priceEl.classList.add("card-price");
-            priceEl.textContent = item.price.toFixed(2) + " DT";
-
-            const btn = document.createElement("button");
-            btn.classList.add("add-btn");
-            btn.innerHTML = '<i class="fas fa-plus"></i> Ajouter';
-            btn.addEventListener("click", () => {
-              if (!currentTable) {
-                showToast("Veuillez d'abord sélectionner une table", "error");
-                showTableModal();
-                return;
-              }
-              addToOrder(item);
-            });
-
-            card.appendChild(nameEl);
-            card.appendChild(priceEl);
-            card.appendChild(btn);
-
-            itemsGrid.appendChild(card);
-          });
-
-          categoryDiv.appendChild(itemsGrid);
-          menuContainer.appendChild(categoryDiv);
-        });
-      }
-
-      // Add item to order
-      function addToOrder(item) {
-        const existing = order.find((i) => i.name === item.name);
-        if (existing) {
-          existing.quantity++;
-        } else {
-          order.push({ name: item.name, price: item.price, quantity: 1 });
-        }
-        renderOrder();
-        showToast(`${item.name} ajouté au panier`, "success");
-      }
-
-      // Render order
-      function renderOrder() {
-        orderList.innerHTML = "";
-        let total = 0;
-        let itemCount = 0;
-
-        if (order.length === 0) {
-          const emptyCart = document.createElement("div");
-          emptyCart.classList.add("empty-cart");
-          emptyCart.innerHTML = `
-          <i class="fas fa-shopping-cart" style="font-size: 3rem; opacity: 0.3; margin-bottom: 10px;"></i>
-          <p>Votre panier est vide</p>
-          <p style="font-size: 0.8rem; margin-top: 5px;">Ajoutez des articles pour commencer</p>
-        `;
-          orderList.appendChild(emptyCart);
-          sendOrderBtn.disabled = true;
-        } else {
-          sendOrderBtn.disabled = false;
-
-          order.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            itemCount += item.quantity;
-
-            const li = document.createElement("li");
-            li.innerHTML = `
-            <div class="order-item-info">
-              <div class="order-item-name">${item.name}</div>
-              <div class="order-item-price">${item.price.toFixed(2)} DT</div>
-            </div>
-            <div class="order-item-controls">
-              <button onclick="decreaseQuantity(${index})">−</button>
-              <span>${item.quantity}</span>
-              <button onclick="increaseQuantity(${index})">+</button>
-              <button class="remove-btn" onclick="removeItem(${index})">×</button>
-            </div>
-          `;
-            orderList.appendChild(li);
-          });
-        }
-
-        totalPriceEl.textContent = `${total.toFixed(2)} DT`;
-        cartCount.textContent = itemCount;
-      }
-
-      // Remove item from order
-      window.removeItem = function (index) {
-        const itemName = order[index].name;
-        order.splice(index, 1);
-        renderOrder();
-        showToast(`${itemName} retiré du panier`, "error");
-      };
-
-      // Increase quantity
-      window.increaseQuantity = function (index) {
-        order[index].quantity++;
-        renderOrder();
-      };
-
-      // Decrease quantity
-      window.decreaseQuantity = function (index) {
-        if (order[index].quantity > 1) {
-          order[index].quantity--;
-        } else {
-          removeItem(index);
-          return;
-        }
-        renderOrder();
-      };
-
-      // Show toast message
       function showToast(message, type = "success") {
         const toastContainer = document.getElementById("toast-container");
         const toast = document.createElement("div");
         toast.classList.add("toast", type);
         toast.innerHTML = `
-        <span>${type === "success" ? "✅" : "❌"}</span>
-        <span>${message}</span>
-      `;
+          <i class="fas fa-${
+            type === "success" ? "check" : "exclamation-triangle"
+          }"></i>
+          <span>${message}</span>
+        `;
 
         toastContainer.appendChild(toast);
 
@@ -1240,99 +539,324 @@
         }, 3000);
       }
 
-      // Filter menu by search
-      searchInput.addEventListener("input", function () {
-        const searchTerm = this.value.toLowerCase();
-        const cards = document.querySelectorAll(".card");
+      async function loadSummary() {
+        try {
+          const res = await fetch("http://localhost:5000/summary");
+          const data = await res.json();
 
-        cards.forEach((card) => {
-          const itemName = card.dataset.name;
-          if (itemName.includes(searchTerm)) {
-            card.style.display = "flex";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      });
+          // ---- Afficher totaux ----
+          document.getElementById("totalOrders").textContent = data.totalOrders;
+          document.getElementById("totalIncome").textContent =
+            data.totalIncome.toFixed(2);
 
-      // Filter menu by category
-      categoryBtns.forEach((btn) => {
-        btn.addEventListener("click", function () {
-          const category = this.dataset.category;
+          // ---- Construire chart ----
+          const labels = Object.keys(data.sales);
+          const values = Object.values(data.sales);
 
-          // Update active button
-          categoryBtns.forEach((b) => b.classList.remove("active"));
-          this.classList.add("active");
+          if (chart) chart.destroy(); // refresh proprement
 
-          // Show/hide categories
-          const categories = document.querySelectorAll(".category");
-          categories.forEach((cat) => {
-            if (category === "all" || cat.dataset.category === category) {
-              cat.style.display = "block";
-            } else {
-              cat.style.display = "none";
-            }
+          const ctx = document.getElementById("salesChart").getContext("2d");
+          chart = new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels,
+              datasets: [
+                {
+                  label: "Articles vendus",
+                  data: values,
+                  backgroundColor: "rgba(139, 69, 19, 0.7)",
+                  borderColor: "#8B4513",
+                  borderWidth: 2,
+                  borderRadius: 6,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                title: {
+                  display: true,
+                  text: "Ventes par Article",
+                  color: "#3E2723",
+                  font: {
+                    size: 14,
+                    weight: "500",
+                  },
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  grid: {
+                    color: "rgba(0,0,0,0.05)",
+                  },
+                  ticks: {
+                    color: "#5D4037",
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
+                  ticks: {
+                    color: "#5D4037",
+                    maxRotation: 45,
+                  },
+                },
+              },
+            },
           });
-        });
-      });
 
-      // Scroll to order section when clicking floating cart
-      floatingCart.addEventListener("click", function () {
-        document.querySelector(".order-section").scrollIntoView({
-          behavior: "smooth",
-        });
-      });
+          // ---- Charger le stock ----
+          loadStock();
+        } catch (error) {
+          console.error("Error loading summary:", error);
+          showToast("Erreur de chargement des données", "error");
+        }
+      }
 
-      // Send order
-      sendOrderBtn.addEventListener("click", async () => {
-        if (order.length === 0) {
-          message.textContent = "🛑 Votre panier est vide.";
-          message.className = "message-error";
+      async function loadStock() {
+        try {
+          const res = await fetch("http://localhost:5000/stock");
+          const stock = await res.json();
+
+          const tableBody = document.querySelector("#stockTable tbody");
+          tableBody.innerHTML = "";
+
+          if (Object.keys(stock).length === 0) {
+            tableBody.innerHTML = `
+              <tr>
+                <td colspan="4" class="empty-state">
+                  <i class="fas fa-box-open"></i>
+                  <p>Aucun article en stock</p>
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          Object.entries(stock).forEach(([itemName, itemData]) => {
+            const row = document.createElement("tr");
+
+            // Determine stock status color
+            let stockClass = "good-stock";
+            if (itemData.quantity <= 10) stockClass = "low-stock";
+            else if (itemData.quantity <= 25) stockClass = "medium-stock";
+
+            row.innerHTML = `
+              <td>${itemName}</td>
+              <td class="${stockClass}">${itemData.quantity}</td>
+              <td>${itemData.unit}</td>
+              <td>
+                <div class="stock-controls">
+                  <input type="number" id="stock-${itemName}" value="${itemData.quantity}" min="0">
+                  <button onclick="updateStock('${itemName}')" title="Mettre à jour">
+                    <i class="fas fa-check"></i>
+                  </button>
+                  <button class="delete-btn" onclick="deleteItem('${itemName}')" title="Supprimer">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Error loading stock:", error);
+          showToast("Erreur de chargement du stock", "error");
+        }
+      }
+
+      async function addNewItem() {
+        const name = document.getElementById("newItemName").value.trim();
+        const quantity = parseInt(
+          document.getElementById("newItemQuantity").value
+        );
+        const unit = document.getElementById("newItemUnit").value;
+
+        if (!name) {
+          showToast("Veuillez entrer un nom d'article", "error");
           return;
         }
 
-        if (!currentTable) {
-          message.textContent = "🛑 Veuillez d'abord sélectionner une table.";
-          message.className = "message-error";
-          showTableModal();
+        if (isNaN(quantity) || quantity < 0) {
+          showToast("Veuillez entrer une quantité valide", "error");
           return;
         }
 
         try {
-          for (const item of order) {
-            await fetch("http://localhost:5000/order", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                item_id: item.name,
-                quantity: item.quantity,
-                tableId: currentTable,
-                time: new Date().toLocaleTimeString(),
-              }),
-            });
+          // First get current stock to check if item exists
+          const stockRes = await fetch("http://localhost:5000/stock");
+          const currentStock = await stockRes.json();
+
+          if (currentStock[name]) {
+            showToast("Cet article existe déjà dans le stock!", "error");
+            return;
           }
 
-          message.textContent = `✅ Commande envoyée avec succès pour la Table ${currentTable} !`;
-          message.className = "message-success";
+          // Add new item to stock
+          const res = await fetch(
+            `http://localhost:5000/stock/${encodeURIComponent(name)}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                quantity: quantity,
+                unit: unit,
+              }),
+            }
+          );
 
-          order = [];
-          renderOrder();
+          if (res.ok) {
+            // Clear form
+            document.getElementById("newItemName").value = "";
+            document.getElementById("newItemQuantity").value = "0";
 
-          setTimeout(() => {
-            message.style.display = "none";
-          }, 3000);
-        } catch (err) {
-          console.error(err);
-          message.textContent = "❌ Erreur lors de l'envoi de la commande.";
-          message.className = "message-error";
+            // Reload stock table
+            loadStock();
+            showToast(`Article "${name}" ajouté avec succès!`);
+          } else {
+            showToast("Erreur lors de l'ajout de l'article", "error");
+          }
+        } catch (error) {
+          console.error("Error adding item:", error);
+          showToast("Erreur de connexion", "error");
         }
+      }
+
+      async function updateStock(itemName) {
+        const input = document.getElementById(`stock-${itemName}`);
+        const newQuantity = parseInt(input.value);
+
+        if (isNaN(newQuantity) || newQuantity < 0) {
+          showToast("Veuillez entrer une quantité valide", "error");
+          return;
+        }
+
+        try {
+          // Get current stock to preserve unit
+          const stockRes = await fetch("http://localhost:5000/stock");
+          const currentStock = await stockRes.json();
+          const currentUnit = currentStock[itemName]?.unit || "unités";
+
+          const res = await fetch(
+            `http://localhost:5000/stock/${encodeURIComponent(itemName)}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                quantity: newQuantity,
+                unit: currentUnit,
+              }),
+            }
+          );
+
+          if (res.ok) {
+            showToast(`Stock de "${itemName}" mis à jour!`);
+          } else {
+            showToast("Erreur lors de la mise à jour du stock", "error");
+          }
+        } catch (error) {
+          console.error("Error updating stock:", error);
+          showToast("Erreur de connexion", "error");
+        }
+      }
+
+      async function deleteItem(itemName) {
+        if (
+          !confirm(
+            `Êtes-vous sûr de vouloir supprimer "${itemName}" du stock ?`
+          )
+        ) {
+          return;
+        }
+
+        try {
+          // Get current stock
+          const stockRes = await fetch("http://localhost:5000/stock");
+          const currentStock = await stockRes.json();
+
+          // Remove the item
+          delete currentStock[itemName];
+
+          // Save updated stock (we'll need to implement a bulk update endpoint)
+          const res = await fetch("http://localhost:5000/stock/bulk", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(currentStock),
+          });
+
+          if (res.ok) {
+            loadStock();
+            showToast(`Article "${itemName}" supprimé avec succès!`);
+          } else {
+            showToast("Erreur lors de la suppression de l'article", "error");
+          }
+        } catch (error) {
+          console.error("Error deleting item:", error);
+          showToast("Erreur de connexion", "error");
+        }
+      }
+
+      async function resetStock() {
+        if (
+          !confirm("Êtes-vous sûr de vouloir réinitialiser tout le stock ?")
+        ) {
+          return;
+        }
+
+        try {
+          const res = await fetch("http://localhost:5000/stock/reset", {
+            method: "POST",
+          });
+
+          if (res.ok) {
+            loadStock();
+            showToast("Stock réinitialisé avec succès !");
+          } else {
+            showToast("Erreur lors de la réinitialisation du stock", "error");
+          }
+        } catch (error) {
+          console.error("Error resetting stock:", error);
+          showToast("Erreur de connexion", "error");
+        }
+      }
+
+      function exportSalesData() {
+        showToast("Fonction d'export à implémenter", "error");
+      }
+
+      function refreshData() {
+        loadSummary();
+        showToast("Données actualisées");
+      }
+
+      // Socket listeners for real-time updates
+      socket.on("stock-updated", (stock) => {
+        loadStock();
       });
 
-      // Initialize
-      generateTableButtons();
-      checkSavedTable();
-      renderMenu();
-      renderOrder();
+      socket.on("new-order", () => {
+        loadSummary(); // Refresh summary when new orders come in
+      });
+
+      // Initial load
+      loadSummary();
+
+      // Auto-refresh every 10 seconds
+      setInterval(loadSummary, 10000);
+
+      // Enter key support for adding items
+      document
+        .getElementById("newItemName")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            addNewItem();
+          }
+        });
     </script>
   </body>
 </html>
